@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    
+    <style>
+        /* bootstrap icons */
+        @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+        body{
+            background-color: black;
+        }
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: 0.3s;
+        }
+
+        /* NavBar Links */
+        @media (max-width:639px) {
+            nav button{
+                display: inline-block;
+                cursor: pointer;
+            }
+            nav button#close__nav-btn{
+                display: none;
+            }
+            .nav__items{
+                width: 10.2rem !important;
+                max-width: 30%;
+                height: fit-content;
+                position: absolute;
+                flex-direction: column;
+                top: 100%;
+                /* background-color: black; */
+                right: 0;
+                align-items: flex-start;
+                justify-content: center;
+                gap: 0;
+                display: none;
+            }
+            .nav__items li{
+                text-align: left;
+                padding: 10px;
+                width: 100%;
+                height: 4.5rem;
+                display: flex;
+                font-size: 14px;
+                background-color: black;
+                align-items: center;
+                box-shadow: -1rem 4rem 3rem #ffffff24 inset;
+                border-top: 1px solid gray;
+                animation:animateDropdown 400ms 0s ease forwards;
+                opacity: 0;
+                transform-origin: top;
+                color: #DB3C00;
+            }
+            .nav__items li:nth-child(2){
+                animation-delay: 200ms;
+            }
+            .nav__items li:nth-child(3){
+                animation-delay: 400ms;
+            }
+            .nav__items li:nth-child(4){
+                animation-delay: 600ms;
+            }
+            .nav__items li:nth-child(5){
+                animation-delay: 800ms;
+            }
+            /* nav dropdown animation */
+            @keyframes animateDropdown{
+                0%{
+                    transform: rotateX(90deg);
+                }
+                100%{
+                    transform: rotateX(0deg);
+                    opacity: 1;
+                }
+            }
+        }    
+        /* BUTTON */
+        .btn{
+            padding: 0.2rem 1.5rem;
+            background-color: #DB3C00;
+            color: black;
+            font-weight: bold;
+            border-radius: 50px;
+            letter-spacing: 0.2rem;
+        }
+        .btn:hover{
+            box-shadow: 0px 0px 20px 5px #DB3C00;
+        }
+        /* Main Head */
+        .main-head{
+            position: relative;
+            width: fit-content;
+            text-align: center;
+        }
+        .main-head::before{
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            width: 80%;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 4px;
+            background-color: #DB3C00;
+        }
+        .main-head h1{
+            font-size: 50px;
+            color: #E19200;
+        }
+        .main-head svg{
+            position: absolute;
+            bottom: -25px;
+            background-color: black;
+            left: 50%;
+            transform: translateX(-50%);
+            display: block;
+            width: 30px;
+            height: 30px;
+            color: #DB3C00;
+            z-index: 100;
+        }
+        .card-shadow{
+            box-shadow:0px 0px 19px 0px #202020;
+        }
+        /* Big button */
+        .big-btn{
+            display: block;
+            padding: 0.3rem 5.2rem;
+            border-radius: 40px;
+            font-size: 24px;
+            color: #DB3C00;
+            border: 1px solid #DB3C00;
+        }
+        
+        .big-btn:hover{
+            color: black;
+            background-color: #DB3C00;
+        }
+        .big-btn i:before{
+            color: #E19200;
+        }
+        /* Cook */
+        .cooks .test{
+            transition: 1s;
+            transform-style: preserve-3d;
+            transform: rotateY(0deg);
+            border: 2px solid #E19200;
+        }
+        .cooks .test .front{
+            backface-visibility: hidden;
+        }
+        .cooks .test.open {
+            transform: rotateY(180deg);
+            /* animation-name:rotates;
+            animation-duration: 1000ms; */ 
+        }
+        .cooks .test .text {
+            transition:all 1s;
+        }
+        .cooks .test.open .text{
+            transform: scaleX(-1);
+        }
+        .cooks .test .name {
+            opacity:0;
+        }
+        .cooks .test .name.open{
+            opacity: 1;
+        }
+        </style>
+</head>
+<body>
+    <nav class="shadow-[0_0_5px_1px_#323232] fixed w-[100%] z-[1000] bg-black top-0">
+        <div class="container flex justify-between mx-auto max-h-[90px] px-6 py-2 sm:p-2 relative">
+            <div class="logo w-[40%] sm:w-[30%] ">
+                <img src="/images/logo2.png" alt="" class="max-h-full max-w-full">
+            </div>
+            <ul class="nav__items hidden sm:flex text-white flex w-[60%]  items-center justify-evenly text-xl text-fourthColor tracking-wider">
+                <li class="hover:text-firstColor cursor-pointer"><a href="#">HOME</a></li>
+                <li class="hover:text-firstColor cursor-pointer"><a href="#">CONTACT</a></li>
+                <li class="hover:text-firstColor cursor-pointer"><a href="#">ORDER</a></li>
+            </ul>
+            <button id="open__nav-btn" class="sm:hidden text-white text-2xl "><i class="bi bi-list"></i></button>
+            <button id="close__nav-btn" class="hidden text-white text-2xl"><i class="bi bi-x-lg"></i></button>
+        </div>
+    </nav>
+    <!-- HERO SECTION -->
+    <section class="hero py-12 mt-20 h-[60] lg:h-[83vh] max-w-full ">
+        <div class="container mx-auto flex flex-row-reverse items-center justify-between flex-col sm:flex-row-reverse">
+            <div class="image w-[75%] sm:w-[60%] lg:w-[50%] flex justify-center items-center">
+                <img src="images/hero.png" alt="" class="max-w-full max-h-full w-[100%] lg:w-[90%]">
+            </div>
+            <div class="text w-[50%] text-white flex justify-center items-start flex-col 
+                sm:ml-10 
+                md:ml-20 
+                lg:ml-36 lg:mt-10
+                ">
+                <h2 class="text-3xl lg:text-5xl text-secondColor mt-16 mb-3 lg:mb-6">BEST</h2>
+                <h1 class="text-5xl lg:text-7xl text-firstColor ">BURGER</h1>
+                <h5 class="text-lg  lg:text-2xl text-fourthColor mb-6 lg:mb-10">IN THE WORLD</h5>
+                <button class="btn text-sm lg:text-xl py-[0.5rem] block mb-10">ORDERNOW</button>
+            </div>
+        </div>
+    </section>
+    <!-- ABOUT SECTION -->
+    <section class="about min-h-[100vh] py-12">
+        <div class='main-head mx-auto mb-20'>
+            <h1 class="">ABOUT US</h1>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-fire" viewBox="0 0 16 16">
+                <path d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16Zm0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15Z"/>
+            </svg>
+        </div>
+        <div class="container flex flex-col md:flex-row-reverse items-center justify-between mx-auto">
+            <div class="image w-[70%] md:w-[47%]">
+                <img src="images/about.jpg" alt="" class="w-[97%] lg:w-[75%] rounded-3xl md:rounded-r-none " >
+            </div>
+            <div class="text w-[85%] md:w-[48%] mt-10 lg:mt-none flex justify-center items-center">
+                <p class="text-white w-[80%] text-[24px] text-fourthColor leading-8 lg:leading-10">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Tenetur impedit assumenda deleniti nesciunt rem saepe. 
+                    Illum culpa, repellat, magni recusandae veniam modi deleniti 
+                    laborum voluptates illo, eius ducimus laboriosam ullam?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                </p>
+            </div>
+        </div>
+    </section>
+    <!-- TYPES SECTION -->
+    <section class="types min-h-[100vh] py-12">
+        <div class='main-head mx-auto mb-20'>
+            <h1 class="">TYPES OF BURGER</h1>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-fire" viewBox="0 0 16 16">
+                <path d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16Zm0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15Z"/>
+            </svg>
+        </div>
+        <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] p-5 mx-auto gap-[100px] my-12">
+            <div class="card  w-full max-w-[300px] mx-auto card-shadow rounded-2xl pt-5 pb-10">
+                <div class="image w-full">
+                    <img src="/images/wepik-photo-mode-20221019-173615.png" alt=""class="w-full rounded-2xl img-shadow w-full" >
+                </div>
+                <div class="text text-center text-center">
+                    <h1 class="text-4xl text-secondColor">CHEESE BURGER</h1>
+                    <button class="btn text-sm lg:text-xl py-[0.5rem] block mx-auto mt-5">ORDERNOW</button>
+                </div>
+            </div>
+            <div class="card  w-full max-w-[300px] mx-auto card-shadow rounded-2xl pt-5 pb-10">
+                <div class="image w-full">
+                    <img src="/images/wepik-photo-mode-20221019-173615.png" alt=""class="w-full rounded-2xl img-shadow w-full" >
+                </div>
+                <div class="text text-center text-center">
+                    <h1 class="text-4xl text-secondColor">CHEESE BURGER</h1>
+                    <button class="btn text-sm lg:text-xl py-[0.5rem] block mx-auto mt-5">ORDERNOW</button>
+                </div>
+            </div>
+            <div class="card  w-full max-w-[300px] mx-auto card-shadow rounded-2xl pt-5 pb-10">
+                <div class="image w-full">
+                    <img src="/images/wepik-photo-mode-20221019-173615.png" alt=""class="w-full rounded-2xl img-shadow w-full" >
+                </div>
+                <div class="text text-center text-center">
+                    <h1 class="text-4xl text-secondColor">CHEESE BURGER</h1>
+                    <button class="btn text-sm lg:text-xl py-[0.5rem] block mx-auto mt-5">ORDERNOW</button>
+                </div>
+            </div>
+            <div class="card  w-full max-w-[300px] mx-auto card-shadow rounded-2xl pt-5 pb-10">
+                <div class="image w-full">
+                    <img src="/images/wepik-photo-mode-20221019-173615.png" alt=""class="w-full rounded-2xl img-shadow w-full" >
+                </div>
+                <div class="text text-center text-center">
+                    <h1 class="text-4xl text-secondColor">CHEESE BURGER</h1>
+                    <button class="btn text-sm lg:text-xl py-[0.5rem] block mx-auto mt-5">ORDERNOW</button>
+                </div>
+            </div>
+            <div class="card  w-full max-w-[300px] mx-auto card-shadow rounded-2xl pt-5 pb-10">
+                <div class="image w-full">
+                    <img src="/images/wepik-photo-mode-20221019-173615.png" alt=""class="w-full rounded-2xl img-shadow w-full" >
+                </div>
+                <div class="text text-center text-center">
+                    <h1 class="text-4xl text-secondColor">CHEESE BURGER</h1>
+                    <button class="btn text-sm lg:text-xl py-[0.5rem] block mx-auto mt-5">ORDERNOW</button>
+                </div>
+            </div>
+            <div class="card  w-full max-w-[300px] mx-auto card-shadow rounded-2xl pt-5 pb-10">
+                <div class="image w-full">
+                    <img src="/images/wepik-photo-mode-20221019-173615.png" alt=""class="w-full rounded-2xl img-shadow w-full" >
+                </div>
+                <div class="text text-center text-center">
+                    <h1 class="text-4xl text-secondColor">CHEESE BURGER</h1>
+                    <button class="btn text-sm lg:text-xl py-[0.5rem] block mx-auto mt-5">ORDERNOW</button>
+                </div>
+            </div>
+        </div>
+        <button class="big-btn mt-10 mx-auto w-fit flex items-center">READMORE<i class="bi bi-arrow-right flex items-center ml-3 "></i></button>
+    </section>
+    <!-- CHEFS SECTION -->
+    <section class="chefs min-h-[80vh] p-12">
+        <div class='main-head mx-auto mb-20'>
+            <h1 class="">BEST CHEFS</h1>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-fire" viewBox="0 0 16 16">
+                <path d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16Zm0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15Z"/>
+            </svg>
+        </div>
+        <div class="container mx-auto cooks flex flex-wrap gap-[30px]">
+            <div class="test test1 w-[300px] h-[300px] mb-5 rounded-full relative mx-auto ">
+                <div class="front w-full h-full rounded-full absolute overflow-hidden">
+                    <Image src="images/cook.jpg" class="h-[100%] w-[100%]"/>
+                </div>
+                <div class="back w-[100%] h-[100%] bg-black rounded-full"></div>
+                <div class="name text-center text flex text-5xl justify-center items-center absolute font-bold z-[1000] top-0 left-0 w-full h-full text-firstColor opacity-0">
+                    <h1 >Mr. John Doe</h1>
+                </div>
+            </div>
+            <div class="test test2 w-[300px] h-[300px] mb-5 rounded-full relative mx-auto ">
+                <div class="front w-full h-full rounded-full absolute overflow-hidden">
+                    <Image src="images/cook.jpg" class="h-[100%] w-[100%]"/>
+                </div>
+                <div class="back w-[100%] h-[100%] bg-black rounded-full"></div>
+                <div class="name text-center text flex text-5xl justify-center items-center absolute font-bold z-[1000] top-0 left-0 w-full h-full text-firstColor opacity-0">
+                    <h1 >Mr. John Doe</h1>
+                </div>
+            </div>
+            <div class="test test3 w-[300px] h-[300px] mb-5 rounded-full relative mx-auto ">
+                <div class="front w-full h-full rounded-full absolute overflow-hidden">
+                    <Image src="images/cook.jpg" class="h-[100%] w-[100%]"/>
+                </div>
+                <div class="back w-[100%] h-[100%] bg-black rounded-full"></div>
+                <div class="name text-center text flex text-5xl justify-center items-center absolute font-bold z-[1000] top-0 left-0 w-full h-full text-firstColor opacity-0">
+                    <h1 >Mr. John Doe</h1>
+                </div>
+            </div>
+            <div class="test test4 w-[300px] h-[300px] mb-5 rounded-full relative mx-auto ">
+                <div class="front w-full h-full rounded-full absolute overflow-hidden">
+                    <Image src="images/cook.jpg" class="h-[100%] w-[100%]"/>
+                </div>
+                <div class="back w-[100%] h-[100%] bg-black rounded-full"></div>
+                <div class="name text-center text flex text-5xl justify-center items-center absolute font-bold z-[1000] top-0 left-0 w-full h-full text-firstColor opacity-0">
+                    <h1 >Mr. John Doe</h1>
+                </div>
+            </div>
+            <div class="test test5 w-[300px] h-[300px] mb-5 rounded-full relative mx-auto ">
+                <div class="front w-full h-full rounded-full absolute overflow-hidden">
+                    <Image src="images/cook.jpg" class="h-[100%] w-[100%]"/>
+                </div>
+                <div class="back w-[100%] h-[100%] bg-black rounded-full"></div>
+                <div class="name text-center text flex text-5xl justify-center items-center absolute font-bold z-[1000] top-0 left-0 w-full h-full text-firstColor opacity-0">
+                    <h1 >Mr. John Doe</h1>
+                </div>
+            </div>
+            <div class="test test6 w-[300px] h-[300px] mb-5 rounded-full relative mx-auto ">
+                <div class="front w-full h-full rounded-full absolute overflow-hidden">
+                    <Image src="images/cook.jpg" class="h-[100%] w-[100%]"/>
+                </div>
+                <div class="back w-[100%] h-[100%] bg-black rounded-full"></div>
+                <div class="name text-center text flex text-5xl justify-center items-center absolute font-bold z-[1000] top-0 left-0 w-full h-full text-firstColor opacity-0">
+                    <h1 >Mr. John Doe</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- FOOTER -->
+    <footer class="">
+        <div class="footer mt-28 bg-[#101010e8] pt-20">
+            <div class="container flex justify-center items-center flex-wrap mx-auto pb-20 flex-col md:flex-row ">
+                <div class="image w-[99%] sm:w-[90%] md:w-[55%] ">
+                    <Image src="images/logo2.png" class=" w-[75%] md:w-[50%%] mx-auto"/>
+                    <div class="links flex text-firstColor justify-center items-center text-3xl gap-5">
+                        <a href="https://whatsup.com" class=""><i class="bi bi-whatsapp"></i></a>
+                        <a href="https://facebook.com" class=""><i class="bi bi-facebook"></i></a>
+                        <a href="https://telegram.com" class=""><i class="bi bi-telegram"></i></a>
+                    </div>
+                </div>
+                <div class="links-fo flex justify-between items-center text-center w-[90%] md:w-[45%] mt-10 md:mt-0 min-h-[250px]">
+                    <div class="s flex flex-col w-[45%] justify-between items-center flex-wrap text-center flex-col space-y-12 lg:space-y-16">
+                        <a href="/"         class='text-xl  text-fourthColor hover:text-firstColor duration-300'>HOME</a>
+                        <a href="/about"    class='text-xl  text-fourthColor hover:text-firstColor duration-300'>ABOUT</a>
+                        <a href="/products" class='text-xl  text-fourthColor hover:text-firstColor duration-300'>PRODUCTS</a>
+                    </div>
+                    <div class="s flex flex-col w-[45%] justify-center items-center flex-wrap text-center flex-col space-y-12 lg:space-y-16">
+                        <a href="/"         class='text-xl  text-fourthColor hover:text-firstColor duration-300'>HOME</a>
+                        <a href="/about"    class='text-xl  text-fourthColor hover:text-firstColor duration-300'>ABOUT</a>
+                        <a href="/products" class='text-xl  text-fourthColor hover:text-firstColor duration-300'>PRODUCTS</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copy mx-auto p-6 text-center bg-[#161616]">
+                <p class='text-secondColor text-lg sm:text-2xl'>&copy;2022 <span class='text-firstColor'>BURGERITTO</span> All Right Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVA SCRIPT -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        firstColor:"#DB3C00",
+                        secondColor:"#E19200",
+                        thirdColor:"#5F3D00",
+                        fourthColor:"#ffffff42"
+                    },
+                    boxShadow: {
+                        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+                    },
+                    borderRadius:{
+                        '2xl':'45px',
+                        '3xl':'75px',
+                        '4xl':'17%',
+                        '5xl':'25%'
+                    },
+                },
+            },
+        };
+
+    // NAV BAR OPEN & CLOSE 
+    const navItems = document.querySelector('.nav__items');
+    const closeNavButton = document.querySelector('#close__nav-btn');
+    const openNavButton = document.querySelector('#open__nav-btn');
+    const openNav=() =>{
+        navItems.style.display='flex';
+        openNavButton.style.display ='none';
+        closeNavButton.style.display='inline-block';
+    }
+    const closeNav=() =>{
+        navItems.style.display='none';
+        openNavButton.style.display ='inline-block';
+        closeNavButton.style.display='none';
+    }
+    openNavButton.addEventListener('click',openNav);
+    closeNavButton.addEventListener('click',closeNav);
+
+    //CHEFS ROTATE
+    const chefsImg=document.querySelector('.cooks .test1');
+    const chefsName=document.querySelector('.cooks .test1 .name');
+
+    chefsImg.addEventListener('click',function(){
+        chefsImg.classList.toggle('open');
+        chefsName.classList.toggle('open');
+    });
+
+    const chefsImg2=document.querySelector('.cooks .test2');
+    const chefsName2=document.querySelector('.cooks .test2 .name');
+
+    chefsImg2.addEventListener('click',function(){
+        chefsImg2.classList.toggle('open');
+        chefsName2.classList.toggle('open');
+    });
+
+    const chefsImg3=document.querySelector('.cooks .test3');
+    const chefsName3=document.querySelector('.cooks .test3 .name');
+
+    chefsImg3.addEventListener('click',function(){
+        chefsImg3.classList.toggle('open');
+        chefsName3.classList.toggle('open');
+    });
+
+    const chefsImg4=document.querySelector('.cooks .test4');
+    const chefsName4=document.querySelector('.cooks .test4 .name');
+
+    chefsImg4.addEventListener('click',function(){
+        chefsImg4.classList.toggle('open');
+        chefsName4.classList.toggle('open');
+    });
+
+    const chefsImg5=document.querySelector('.cooks .test5');
+    const chefsName5=document.querySelector('.cooks .test5 .name');
+
+    chefsImg5.addEventListener('click',function(){
+        chefsImg5.classList.toggle('open');
+        chefsName5.classList.toggle('open');
+    });
+
+    const chefsImg6=document.querySelector('.cooks .test6');
+    const chefsName6=document.querySelector('.cooks .test6 .name');
+
+    chefsImg6.addEventListener('click',function(){
+        chefsImg6.classList.toggle('open');
+        chefsName6.classList.toggle('open');
+    });
+
+    
+
+    </script>
+</body>
+</html>
